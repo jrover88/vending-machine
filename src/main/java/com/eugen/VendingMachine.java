@@ -1,7 +1,14 @@
+package com.eugen;
+
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Storage {
+public class VendingMachine {
     private HashMap<String, Product> store;
     private int rows;
     private int columns;
@@ -10,14 +17,17 @@ public class Storage {
     private MinorUnit balance;
     private MinorUnit allMoney;
     private Service service;
+    private Actions actions;
 
-    public Storage(int rows, int columns, Service service) {
+
+    private VendingMachine(int rows, int columns, Service service) {
         this.store = new HashMap<>(rows * columns);
         this.rows = rows;
         this.columns = columns;
         this.balance = new MinorUnit(0);
         this.allMoney = new MinorUnit(0);
         this.service = service;
+        this.actions = new Actions();
     }
 
     public MinorUnit getBalance() {
@@ -45,7 +55,7 @@ public class Storage {
         this.service = service;
     }
 
-    public void put(Product product) {
+    public void addProduct(Product product) {
         this.store.put(generatePlaceCoordinate(), product);
     }
 
@@ -78,19 +88,49 @@ public class Storage {
     }
 
     public void addBalance(double money) {
-        if (money > func.MAX_VALUE) {
-            money = func.MAX_VALUE;
+        if (money > Util.MAX_VALUE) {
+            money = Util.MAX_VALUE;
         }
         this.balance.add((int) (money * 100));
         this.allMoney.add((int) (money * 100));
     }
 
-    public void showAllProduct() {
+    public void showAllProducts() {
         for (Map.Entry<String, Product> pair : this.store.entrySet()) {
-            System.out.println(pair.getKey());
+            System.out.println("place number: " + pair.getKey());
             pair.getValue().show();
             System.out.println();
         }
+    }
+
+    public static VendingMachine updateGoods(String pathToJson) throws FileNotFoundException {
+        JsonReader reader = new JsonReader(new FileReader(pathToJson));
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
+
+        VendingMachine storage = new VendingMachine(jsonObject.get("config").getAsJsonObject().get("rows").getAsInt(),
+                jsonObject.get("config").getAsJsonObject().get("columns").getAsInt(), new Service());
+
+        JsonArray jsonArray = jsonObject.get("items").getAsJsonArray();
+        for (JsonElement result : jsonArray) {
+            Product product = new Product(result.getAsJsonObject().get("name").getAsString(),
+                    result.getAsJsonObject().get("amount").getAsInt(),
+                    MinorUnit.convert(result.getAsJsonObject().get("price").getAsString()));
+            storage.addProduct(product);
+        }
+        return storage;
+    }
+
+    public void showCurrentBalance() {
+        System.out.println("Current Balance: " + this.balance.toUsd());
+    }
+
+    public void showActions() {
+        this.actions.show();
+    }
+
+    public boolean containAction(String action) {
+        return this.actions.checkActions(action);
     }
 
 }

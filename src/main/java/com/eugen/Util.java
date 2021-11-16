@@ -1,20 +1,21 @@
+package com.eugen;
+
+import java.util.Map;
 import java.util.Scanner;
 
-public class func {
+public class Util {
     public static final double MAX_VALUE = 10.0;
-    private static double insertedMoney;
 
-
-    public static boolean isDouble(String s) {
+    public static boolean isDouble(String number) {
         try {
-            Double.parseDouble(s);
+            Double.parseDouble(number);
         } catch (NumberFormatException e) {
             System.out.println("ERROR - Input must be number");
             return false;
         } catch (NullPointerException e) {
             return false;
         }
-        if (Double.parseDouble(s) < 0 || Double.parseDouble(s) > 10.0) {
+        if (Double.parseDouble(number) < 0 || Double.parseDouble(number) > 10.0) {
             System.out.println("\nERROR - Quantity on hand must be between $0.01 and $10.00");
             return false;
         } else {

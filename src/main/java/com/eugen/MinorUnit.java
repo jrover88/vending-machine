@@ -1,3 +1,5 @@
+package com.eugen;
+
 public class MinorUnit {
 
     private int money;
@@ -17,7 +19,7 @@ public class MinorUnit {
     public static int convert(String price) {
         return Integer.parseInt(price.replace("$", "").replace(".","").replace(",",""));
     }
-    
+
     public String toUsd() {
         String s = "$" + this.money / 100 + ".";
         if(this.money % 100 < 9) {

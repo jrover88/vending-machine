@@ -5,18 +5,18 @@
 	},
 	"items": [{
 		"name": "Snickers",
-		"amount": 10,
+		"amount": 1,
 		"price": "$1.35"
 	}, {
-		"name": "Hersheys",
+		"name": "Hershey",
 		"amount": 10,
 		"price": "$2.25"
 	}, {
-		"name": "Hersheys Almond",
+		"name": "Hershey's Almond",
 		"amount": 10,
 		"price": "$1.80"
 	}, {
-		"name": "Hersheys Special Dark",
+		"name": "Hershey's Special Dark",
 		"amount": 10,
 		"price": "$1.75"
 	}, {
@@ -24,7 +24,7 @@
 		"amount": 10,
 		"price": "$1.05"
 	}, {
-		"name": "Nutrageous",
+		"name": "Nitrogenous",
 		"amount": 10,
 		"price": "$1.30"
 	}, {
