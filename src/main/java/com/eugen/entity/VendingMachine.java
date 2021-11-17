@@ -1,5 +1,8 @@
-package com.eugen;
+package com.eugen.entity;
 
+import com.eugen.utils.ConsumerService;
+import com.eugen.utils.Operation;
+import com.eugen.utils.Util;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
@@ -16,18 +19,18 @@ public class VendingMachine {
     private int Y = 1;
     private MinorUnit balance;
     private MinorUnit allMoney;
-    private Service service;
-    private Actions actions;
+    private ConsumerService consumerService;
+    private Operation operation;
 
 
-    private VendingMachine(int rows, int columns, Service service) {
+    private VendingMachine(int rows, int columns, ConsumerService consumerService) {
         this.store = new HashMap<>(rows * columns);
         this.rows = rows;
         this.columns = columns;
         this.balance = new MinorUnit(0);
         this.allMoney = new MinorUnit(0);
-        this.service = service;
-        this.actions = new Actions();
+        this.consumerService = consumerService;
+        this.operation = new Operation();
     }
 
     public MinorUnit getBalance() {
@@ -47,12 +50,12 @@ public class VendingMachine {
     }
 
 
-    public Service getService() {
-        return service;
+    public ConsumerService getService() {
+        return consumerService;
     }
 
-    public void setService(Service service) {
-        this.service = service;
+    public void setService(ConsumerService consumerService) {
+        this.consumerService = consumerService;
     }
 
     public void addProduct(Product product) {
@@ -109,7 +112,7 @@ public class VendingMachine {
         JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
 
         VendingMachine storage = new VendingMachine(jsonObject.get("config").getAsJsonObject().get("rows").getAsInt(),
-                jsonObject.get("config").getAsJsonObject().get("columns").getAsInt(), new Service());
+                jsonObject.get("config").getAsJsonObject().get("columns").getAsInt(), new ConsumerService());
 
         JsonArray jsonArray = jsonObject.get("items").getAsJsonArray();
         for (JsonElement result : jsonArray) {
@@ -126,11 +129,11 @@ public class VendingMachine {
     }
 
     public void showActions() {
-        this.actions.show();
+        this.operation.show();
     }
 
     public boolean containAction(String action) {
-        return this.actions.checkActions(action);
+        return this.operation.checkActions(action);
     }
 
 }

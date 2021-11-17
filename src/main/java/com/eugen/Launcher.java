@@ -1,5 +1,8 @@
 package com.eugen;
 
+import com.eugen.entity.VendingMachine;
+import com.eugen.utils.Util;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,6 +16,8 @@ public class Launcher {
 
     public static void main(String[] args) throws FileNotFoundException {
         FileHandler fh;
+        VendingMachine machine = null;
+        String pathToJsonFile = "src/main/resources/input.json";
         try {
             fh = new FileHandler("src/main/java/com/eugen/log/log.txt", true);
             LOGGER.addHandler(fh);
@@ -21,17 +26,14 @@ public class Launcher {
 
             // the following statement is used to log any messages
             LOGGER.info("Vending machine turned on");
+            machine = VendingMachine.updateGoods(pathToJsonFile);
+        } catch (SecurityException | IOException e ) {
+            e.printStackTrace();}
 
-        } catch (SecurityException | IOException e) {
-            e.printStackTrace();
-        }
-
-        String pathToJsonFile = "src/main/resources/input.json";
-        VendingMachine machine = VendingMachine.updateGoods(pathToJsonFile);
         machine.showAllProducts();
 
         Scanner scanner = new Scanner(System.in);
-        String mainChoice = "";
+        String mainChoice;
 
         outerloop:
         while (true) {

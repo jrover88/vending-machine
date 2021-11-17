@@ -1,7 +1,4 @@
-package com.eugen;
-
-import java.util.Map;
-import java.util.Scanner;
+package com.eugen.utils;
 
 public class Util {
     public static final double MAX_VALUE = 10.0;

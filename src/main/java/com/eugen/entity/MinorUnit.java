@@ -1,4 +1,4 @@
-package com.eugen;
+package com.eugen.entity;
 
 public class MinorUnit {
 

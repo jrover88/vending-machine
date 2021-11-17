@@ -1,12 +1,12 @@
-package com.eugen;
+package com.eugen.utils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Actions {
+public class Operation {
     private Map<String, String> actions;
 
-    public Actions() {
+    public Operation() {
         this.actions = new HashMap<String, String>();
         fill();
     }

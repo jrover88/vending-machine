@@ -1,6 +1,9 @@
-package com.eugen;
+package com.eugen.utils;
 
-public class Service {
+import com.eugen.entity.MinorUnit;
+import com.eugen.entity.Product;
+
+public class ConsumerService {
 
     public boolean enoughGoods(Product product) {
         return product.isExist();
