@@ -1,0 +1,7 @@
+com\eugen\utils\ConsumerService.class
+com\eugen\Launcher.class
+com\eugen\utils\Util.class
+com\eugen\entity\MinorUnit.class
+com\eugen\entity\Product.class
+com\eugen\utils\Operation.class
+com\eugen\entity\VendingMachine.class
