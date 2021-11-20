@@ -6,8 +6,7 @@ the functionality of the machine. When a consumer enters a selection, it should 
 - Provide a loading option for new product lists to update.
 - User is able to enter a selection.
 - Machine prompts the user for payment and amount in US dollars.
-- If user enters in payment, calculation must occur and be reported.
-- Machine must state the current state of the transaction.
+- If user enters in payment, calculation is reporting.
 - Main actions logs for audit purposes.
 
 The application reads the list of products from the json file located in project folder 'resources'. 
